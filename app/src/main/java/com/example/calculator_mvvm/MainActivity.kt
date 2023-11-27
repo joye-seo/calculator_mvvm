@@ -1,39 +1,29 @@
 package com.example.calculator_mvvm
 
-import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import com.example.calculator_mvvm.base.BaseActivity
 import com.example.calculator_mvvm.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewState>(R.layout.activity_main) {
 
-    private lateinit var binding: ActivityMainBinding
+    override val viewModel: MainViewModel by viewModels()
 
-    private val mainViewModel by viewModels<MainViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        observeData()
-        initView()
+    override fun initUi() {
+        with(binding) {
+            lifecycleOwner = this@MainActivity
+            viewModel = this@MainActivity.viewModel
+        }
     }
 
-    fun initView() = with(binding) {
-        lifecycleOwner = this@MainActivity
-        viewModel = mainViewModel
-    }
+    override fun onChangedViewState(viewState: MainViewState) {
+        when (viewState) {
+            is MainViewState.GetData -> {
+                binding.tvResult.text = viewState.string
+            }
 
-    fun observeData() {
-        mainViewModel.calculateState.observe(this@MainActivity) { it ->
-            when (it) {
-                is MainViewState.SuccessCalculate -> {
-                    binding.tvResult.text = it.result.toString()
-                }
-
-                is MainViewState.FailCalculate -> {
-                    binding.tvResult.text = it.message
-                }
+            is MainViewState.ShowToast -> {
+                Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

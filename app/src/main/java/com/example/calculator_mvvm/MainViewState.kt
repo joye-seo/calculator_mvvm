@@ -1,13 +1,12 @@
 package com.example.calculator_mvvm
 
-sealed class MainViewState{
+import com.example.calculator_mvvm.base.ViewState
 
-    data class FailCalculate(
-        val message: String
+sealed class MainViewState : ViewState {
+
+    data class GetData(
+        val string: String
     ) : MainViewState()
 
-
-    data class SuccessCalculate(
-        val result: Double
-    ): MainViewState()
+    data class ShowToast(val message: String) : MainViewState()
 }

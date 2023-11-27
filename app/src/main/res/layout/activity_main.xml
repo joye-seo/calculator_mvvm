@@ -8,7 +8,9 @@
             name="viewModel"
             type="com.example.calculator_mvvm.MainViewModel" />
 
-        <import type="com.example.calculator_mvvm.Button" />
+        <variable
+            name="operation"
+            type="com.example.calculator_mvvm.Operation" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +73,7 @@
             <Button
                 android:id="@+id/btn_add"
                 android:layout_width="wrap_content"
-                android:onClick="@{() -> viewModel.calculate(Button.PLUS)}"
+                android:onClick="@{() -> viewModel.calc(operation.PLUS)}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="더하기" />
@@ -79,7 +81,7 @@
             <Button
                 android:id="@+id/btn_sub"
                 android:layout_width="wrap_content"
-                android:onClick="@{() -> viewModel.calculate(Button.MINUS)}"
+                android:onClick="@{() -> viewModel.calc(operation.MINUS)}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="빼기" />
@@ -88,7 +90,7 @@
             <Button
                 android:id="@+id/btn_mul"
                 android:layout_width="wrap_content"
-                android:onClick="@{() -> viewModel.calculate(Button.MULTIPLE)}"
+                android:onClick="@{() -> viewModel.calc(operation.MULTIPLE)}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="곱하기" />
@@ -96,7 +98,7 @@
             <Button
                 android:id="@+id/btn_div"
                 android:layout_width="wrap_content"
-                android:onClick="@{() -> viewModel.calculate(Button.DIVIDE)}"
+                android:onClick="@{() -> viewModel.calc(operation.DIVIDE)}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="나누기" />

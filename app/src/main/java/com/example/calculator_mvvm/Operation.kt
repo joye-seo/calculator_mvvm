@@ -1,5 +1,5 @@
 package com.example.calculator_mvvm
 
-enum class Button {
+enum class Operation {
     PLUS, MINUS, MULTIPLE, DIVIDE
 }
